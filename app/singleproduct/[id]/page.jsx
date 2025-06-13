@@ -1,18 +1,31 @@
-import React from 'react'
-import { useParams } from 'react-router-dom'
-import gamingHeadphones from '../data'
+import gamingHeadphones from '@/app/data';
+import React from 'react';
 
-const ProductPage = async({parrms}) => {
-  
-const product = await parrms;
+const ProductPage = ({ params }) => {
+  // Find the product by ID from the URL params
+  const product = gamingHeadphones.find((item) => item.id.toString() === params.id);
 
-console.log(product)
-
+  if (!product) {
+    return (
+      <div className="bg-gray-50 min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-900">Product not found</h1>
+          <p className="mt-2 text-gray-600">The requested product could not be located.</p>
+          <a 
+            href="/products" 
+            className="mt-4 inline-block bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"
+          >
+            Browse Products
+          </a>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-gray-50 min-h-screen py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        {/* Breadcrumb */}
+        {/* Breadcrumb Navigation */}
         <nav className="mb-8">
           <ol className="flex items-center space-x-2 text-sm">
             <li>
@@ -38,14 +51,14 @@ console.log(product)
             {/* Thumbnails */}
             <div className="hidden mt-6 w-full max-w-2xl mx-auto sm:block lg:max-w-none">
               <div className="grid grid-cols-4 gap-6">
-                {[1, 2, 3, 4].map((i) => (
+                {[product.imageUrl, product.imageUrl, product.imageUrl, product.imageUrl].map((img, i) => (
                   <div
                     key={i}
                     className="relative h-24 bg-white rounded-md overflow-hidden group cursor-pointer"
                   >
                     <img
-                      src={product.imageUrl}
-                      alt={`${product.title} view ${i}`}
+                      src={img}
+                      alt={`${product.title} view ${i + 1}`}
                       className="w-full h-full object-contain object-center"
                     />
                     <div className="absolute inset-0 rounded-md ring-2 ring-offset-2 ring-indigo-500 opacity-0 group-hover:opacity-100 transition" />
@@ -60,6 +73,7 @@ console.log(product)
                 src={product.imageUrl}
                 alt={product.title}
                 className="w-full h-96 object-contain object-center"
+               
               />
             </div>
           </div>
@@ -68,6 +82,7 @@ console.log(product)
           <div className="mt-10 px-4 sm:px-0 sm:mt-16 lg:mt-0">
             <h1 className="text-3xl font-extrabold text-gray-900">{product.title}</h1>
 
+            {/* Rating */}
             <div className="mt-4 flex items-center">
               <div className="flex items-center">
                 {[0, 1, 2, 3, 4].map((rating) => (
@@ -92,8 +107,10 @@ console.log(product)
               </p>
             </div>
 
+            {/* Price */}
             <p className="mt-4 text-3xl text-gray-900">{product.price}</p>
 
+            {/* Description */}
             <p className="mt-6 text-gray-600">{product.description}</p>
 
             {/* Colors */}
@@ -114,6 +131,8 @@ console.log(product)
                           color.toLowerCase().includes('white') ? '#fff' :
                           color.toLowerCase().includes('black') ? '#000' :
                           color.toLowerCase().includes('red') ? '#f00' :
+                          color.toLowerCase().includes('slate') ? '#64748b' :
+                          color.toLowerCase().includes('carbon') ? '#404040' :
                           '#e5e7eb'
                       }}
                     />
@@ -151,7 +170,7 @@ console.log(product)
             <div className="mt-10">
               <button
                 type="button"
-                className="w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-pointer transition-colors duration-200"
               >
                 Add to cart
               </button>
@@ -159,22 +178,39 @@ console.log(product)
 
             {/* Product Details */}
             <div className="mt-10 border-t border-gray-200 pt-10">
-              <h3 className="text-lg font-medium text-gray-900">Details</h3>
-              <div className="mt-4 prose prose-sm text-gray-500">
-                <ul>
-                  <li>50mm high-density drivers for superior sound</li>
-                  <li>Premium memory foam ear cushions</li>
-                  <li>Advanced noise-cancellation microphone</li>
-                  <li>Multi-platform compatibility</li>
-                  <li>Includes carrying case and accessories</li>
-                </ul>
+              <h3 className="text-lg font-medium text-gray-900">Technical Specifications</h3>
+              <div className="mt-4 grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6">
+                <div>
+                  <h4 className="text-sm font-medium text-gray-900">Driver</h4>
+                  <p className="text-sm text-gray-500 mt-1">50mm high-density neodymium</p>
+                </div>
+                <div>
+                  <h4 className="text-sm font-medium text-gray-900">Frequency Response</h4>
+                  <p className="text-sm text-gray-500 mt-1">20Hz–20kHz</p>
+                </div>
+                <div>
+                  <h4 className="text-sm font-medium text-gray-900">Impedance</h4>
+                  <p className="text-sm text-gray-500 mt-1">32Ω</p>
+                </div>
+                <div>
+                  <h4 className="text-sm font-medium text-gray-900">Microphone</h4>
+                  <p className="text-sm text-gray-500 mt-1">Detachable noise-cancelling</p>
+                </div>
+                <div>
+                  <h4 className="text-sm font-medium text-gray-900">Weight</h4>
+                  <p className="text-sm text-gray-500 mt-1">320g</p>
+                </div>
+                <div>
+                  <h4 className="text-sm font-medium text-gray-900">Cable Length</h4>
+                  <p className="text-sm text-gray-500 mt-1">1.2m (with extension to 3m)</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ProductPage
+export default ProductPage;
