@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
 <Sidebar/>
 
 
-<div className="w-full ">
+<div className="w-full flex flex-col gap-4 ">
 
 <Nav/>
         {children}
