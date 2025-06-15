@@ -6,7 +6,7 @@ const sidebarData = [
     title: 'Pages',
     items: [
       { label: 'Dashboard', icon: <LayoutDashboard />, link: '/dashboard' },
-      { label: 'Users', icon: <UserCircle />, link: '/users' },
+      { label: 'Users', icon: <UserCircle />, link: '/dashboard/users/show-users' },
       { label: 'Products', icon: <ShoppingCart />, link: '/products' },
       { label: 'Transaction', icon: <Shuffle />, link: '/transaction' },
     ],
