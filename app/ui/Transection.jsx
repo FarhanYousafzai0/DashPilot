@@ -4,7 +4,7 @@ import { transections } from './transections';
 
 const Transaction = () => {
   return (
-    <div className="w-full p-6 bg-white rounded-xl shadow-sm border border-gray-100">
+    <div className="w-full p-6 bg-white rounded-xl mt-4  shadow-sm border border-gray-100">
       <h2 className="text-xl font-semibold mb-6 text-gray-800">Latest Transactions</h2>
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200">

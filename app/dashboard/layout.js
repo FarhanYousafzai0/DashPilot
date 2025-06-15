@@ -13,7 +13,7 @@ export default function RootLayout({ children }) {
       <body
       >
     
-     <div className="flex items-start gap-4 m-2 ">
+     <div className="flex items-start gap-4 overflow-hidden ">
 
 <Sidebar/>
 
